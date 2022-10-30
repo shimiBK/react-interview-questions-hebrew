@@ -125,3 +125,37 @@ function Columns() {
 }
 
 ```
+
+## ש.מדוע אנחנו צריכים key עבור רשימות בריאקט ?
+
+
+ת.Keys הם ערכים מיוחדים שאנחנו חייבים להעביר לkey prop כאשר אנחנו משתמשים בפונקציית .map() על אלמנט או קומפוננט , הkeys משמשים על מנת לזהות איזה מן הפריטים ברשימה השתנה , התעדכן או נמחק.במילים אחרות הkeys נועדו לתת זהות לכל אלמנט ברשימה וזאת על מנת שריאקט תוכל לעדכן את הDOM כהלכה , נראה דוגמה :
+
+```
+
+posts.map(post => <li key={post.id}>{post.title}</li>)
+
+```
+
+## ש. מהו הuseRef Hook ואיך משתמשים בו ?
+
+ת.Ref הוא בעצם Reference לDOM element  בריאקט , אנו יוצרים Refs באמצעות useRef Hook וניתן למקם אותם באופן מיידי בתוך משתנה , המשתנה הזה לאחר מוכן מעובר לאלמנט של ריאקט על מנת לקבל רפרנס לאלמנט DOM ( כמו div,span וכו' ) , האלמנט עצמו והמאפיינים שלו כעת זמינים תחת המאפיין .current 
+נראה דוגמה : 
+```
+
+import { useRef } from 'react'
+
+function MyComponent() {
+  const ref = useRef();
+
+  useEffect(() => {
+    console.log(ref.current) // reference to div element
+  }, [])
+
+  return <div ref={ref} />
+}
+
+
+```
+
+
