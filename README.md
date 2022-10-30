@@ -83,4 +83,45 @@ function BlogPost() {
 <br>
 פרופס (props) הם ערכים שאנחנו מעבירים בין קומפוננטות ( בדר"כ מהורה לילד) . 
 
+## ש.למה משמשים React Fragments ?
 
+ת. React Fragments הם פי'צר מיוחד בריאקט המאפשר ל"קבץ" מספר אלנמטי ילדים ( children elements ) או קומפוננטות מבלי ליצור node נוסף בDOM
+לעיתים קרובות אנחנו צריכים לכתוב מספר אלמנטים תחת הורה יחיד אך אנחנו לא רוצים להשתמש באלנט HTML גנרי כמו div .
+
+נראה דוגמה , אם לצורך העניין נרצה ליצור טבלה , ללא Fragments זה יראה כך :
+
+```
+function Table() {
+  return (
+    <table>
+      <tr>
+        <Columns />
+      </tr>
+    </table>
+  );
+}
+
+function Columns() {
+  return (
+    <div>
+      <td>Column 1</td>
+      <td>Column 2</td>
+    </div>
+  );
+}
+
+```
+אך נוכל לחסוך את הdiv בקומפוננטת הCoulmn ולכתוב כך :
+
+```
+
+function Columns() {
+  return (
+    <>
+      <td>Column 1</td>
+      <td>Column 2</td>
+    </>
+  );
+}
+
+```
