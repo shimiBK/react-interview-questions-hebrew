@@ -158,4 +158,116 @@ function MyComponent() {
 
 ```
 
+## ש. מהו state? 
 
+ת. state הוא אובייקט מובנה בריאקט שתפקידו לאחסן נתונים או אינפורמציה בנוגע לקומפוננטה , הstate יכול להשתנות במהלך התכנית , בכל שינוי שלו הקומפוננטה עוברת רנדור מחדש.
+
+## ש. מהם HOOKS??
+
+ת. Hooks הוצגו לראשונה בגרסה 16.8 של ריאקט.
+הHooks מאפשרים לקומפננטות פונקציונליות ( function componenets) לגשת לstate ולפיצ'רים נוספים של ריאקט , באופן עקרוני מגרסה זו אין צורך יותר בקומפוננטות מחלקה ( class componenets ) 
+
+ה-hooks העיקריים הם:
+useState
+useEffect
+useContext
+useReducer
+useRef
+useMemo
+useCallback
+
+נשים לב שניתן גם ליצור Hooks מותאים אישית (custom hooks)
+
+## ש. מהו useState ? 
+
+ת.useState Hook  מאפשר לנו לעקוב/לנהל state בקומפוננטה פונקציונלית , state מתייחס כאמור
+נראה דוגמה : 
+
+```
+
+  import React, { useState } from 'react';
+
+ function Example() {
+    const [count, setCount] = useState(0);
+
+    return (
+       <div>
+          <p>You clicked {count} times</p>
+          <button onClick={() => setCount(count + 1)}>
+           Click me
+          </button>
+       </div>
+);
+ }
+
+```
+
+
+
+## ש. מהו useEffect ואיך משתמשים בו ? 
+
+
+ת.useEffect Hook מאפשרים לנו לבצע side effect בקומפוננטות שלנו 
+דוגמאות לside effectד : fetching data, עדכון הDOM באופן ישיר , timers .
+<br>
+useEffect מקבל שני ארגומנטים כאשר השני הוא ארגומנט אופציונלי.
+הארגומנט הראשון הוא פונקציה שנקראת Effect , והארגומנט השני הוא מערך של תלויות ( dependencies ) כאמור הארגומנט הזה הוא אופציונלי ותכף נראה את השימוש בו.
+
+```
+
+import { useState, useEffect } from "react";
+import ReactDOM from "react-dom/client";
+
+function Timer() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCount((count) => count + 1);
+    }, 1000);
+  });
+
+  return <h1>I've rendered {count} times!</h1>;
+}
+
+
+```
+
+הuseEffect רץ בכל רינדור , משמע שבדוגמה שלנו כאשר הcount משתנה מתבצע רינדור ( מאחר והשתנה הstate)
+ולכן יופעל שוב הuseEffect שוב ישתנה הסטייט ולמעשה ניכנס ללופ אינסופי , מה הפתרון ? התלויות
+
+כאשר לא מעבירים תלות : 
+
+```
+
+
+useEffect(() => {
+  //ירוץ בכל רינדור
+});
+
+
+```
+
+
+כאשר מעבירים מערך ריק :
+
+```
+useEffect(() => {
+  //רץ ברינדור הראשון
+}, []);
+
+
+
+```
+
+כאשר מעבירים prop או state:
+
+```
+useEffect(() => {
+  //רץ ברינדור הראשון
+  //וגם כאשר הערך של הפרופ או הסטייס משתנים
+}, [prop, state]);
+
+
+
+```
