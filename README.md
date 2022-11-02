@@ -12,6 +12,11 @@
 JSX ממירה תגים של HTML לאלמנטים של REACT.<br>
 נשים לב שהדפדפן אינו יכול להבין JSX לבדו ,ולכן אנחנו משתמשים בקומפיילר של ג'אווהסקריפט שנקרא BABEL על מנת להמיר את הJSX לג'אווהסקריפט שהדפדפן מבין.
 
+
+## ש. מהו הVirtual Dom ?
+
+ת. ראשית DOM הוא ראשי תיבות לDocument Object Model.הDOM מייצג מסמך HTML עם מבנה עץ לוגי . כל ענףשל העץ מסתיים בצומת , וכל צומת מכילה אובייקטים.React שומרת ייצוג של הDOM בזכרון וזהו הVIRTUAL DOM. כאשר סטייס של אובייקט משתנה , הVDOM משנה אך ורק את האובייקט שהשתנה בDOM האמיתי ולא מעדכן את כל האובייקטים.
+
 ## ש.איך מעבירים נתונים לקומפוננטות של ריאקט ? 
 
 ישנם 2 דרכים עיקריות שמשמשות על מנת להעביר נתונים לקומפוננטות של ריקאט :
@@ -137,50 +142,31 @@ posts.map(post => <li key={post.id}>{post.title}</li>)
 
 ```
 
-## ש. מהו הuseRef Hook ואיך משתמשים בו ?
 
-ת.Ref הוא בעצם Reference לDOM element  בריאקט , אנו יוצרים Refs באמצעות useRef Hook וניתן למקם אותם באופן מיידי בתוך משתנה , המשתנה הזה לאחר מוכן מעובר לאלמנט של ריאקט על מנת לקבל רפרנס לאלמנט DOM ( כמו div,span וכו' ) , האלמנט עצמו והמאפיינים שלו כעת זמינים תחת המאפיין .current 
-נראה דוגמה : 
-```
-
-import { useRef } from 'react'
-
-function MyComponent() {
-  const ref = useRef();
-
-  useEffect(() => {
-    console.log(ref.current) // reference to div element
-  }, [])
-
-  return <div ref={ref} />
-}
-
-
-```
 
 ## ש. מהו state? 
 
 ת. state הוא אובייקט מובנה בריאקט שתפקידו לאחסן נתונים או אינפורמציה בנוגע לקומפוננטה , הstate יכול להשתנות במהלך התכנית , בכל שינוי שלו הקומפוננטה עוברת רנדור מחדש.
 
-## ש. מהם HOOKS??
+## ש. מהם HOOKS?
 
 ת. Hooks הוצגו לראשונה בגרסה 16.8 של ריאקט.
-הHooks מאפשרים לקומפננטות פונקציונליות ( function componenets) לגשת לstate ולפיצ'רים נוספים של ריאקט , באופן עקרוני מגרסה זו אין צורך יותר בקומפוננטות מחלקה ( class componenets ) 
+הHooks מאפשרים לקומפננטות פונקציונליות ( function componenets) לגשת לstate ולמטודות lifecycle בתוך הקומפוננטות , באופן עקרוני מגרסה זו אין צורך יותר בקומפוננטות מחלקה ( class componenets ) 
 
 ה-hooks העיקריים הם:
-useState
-useEffect
-useContext
-useReducer
-useRef
-useMemo
-useCallback
+useState<br>
+useEffect<br>
+useContext<br>
+useReducer<br>
+useRef<br>
+useMemo<br>
+useCallback<br>
 
 נשים לב שניתן גם ליצור Hooks מותאים אישית (custom hooks)
 
 ## ש. מהו useState ? 
 
-ת.useState Hook  מאפשר לנו לעקוב/לנהל state בקומפוננטה פונקציונלית , state מתייחס כאמור
+ת.useState Hook  מאפשר לנו לעקוב/לנהל state בקומפוננטה פונקציונלית
 נראה דוגמה : 
 
 ```
@@ -207,8 +193,8 @@ useCallback
 ## ש. מהו useEffect ואיך משתמשים בו ? 
 
 
-ת.useEffect Hook מאפשרים לנו לבצע side effect בקומפוננטות שלנו 
-דוגמאות לside effectד : fetching data, עדכון הDOM באופן ישיר , timers .
+ת.useEffect Hook מאפשר לנו לבצע side effect בקומפוננטות שלנו 
+דוגמאות לside effects : fetching data, עדכון הDOM באופן ישיר , timers .
 <br>
 useEffect מקבל שני ארגומנטים כאשר השני הוא ארגומנט אופציונלי.
 הארגומנט הראשון הוא פונקציה שנקראת Effect , והארגומנט השני הוא מערך של תלויות ( dependencies ) כאמור הארגומנט הזה הוא אופציונלי ותכף נראה את השימוש בו.
@@ -268,6 +254,27 @@ useEffect(() => {
   //וגם כאשר הערך של הפרופ או הסטייס משתנים
 }, [prop, state]);
 
+
+
+```
+
+## ש. מהו הuseRef Hook ואיך משתמשים בו ?
+
+ת.Ref הוא בעצם Reference לDOM element  בריאקט , אנו יוצרים Refs באמצעות useRef Hook וניתן למקם אותם באופן מיידי בתוך משתנה , המשתנה הזה לאחר מוכן מעובר לאלמנט של ריאקט על מנת לקבל רפרנס לאלמנט DOM ( כמו div,span וכו' ) , האלמנט עצמו והמאפיינים שלו כעת זמינים תחת המאפיין .current 
+נראה דוגמה : 
+```
+
+import { useRef } from 'react'
+
+function MyComponent() {
+  const ref = useRef();
+
+  useEffect(() => {
+    console.log(ref.current) // reference to div element
+  }, [])
+
+  return <div ref={ref} />
+}
 
 
 ```
