@@ -361,8 +361,7 @@ function MyComponent() {
 
 ```
 
-## ש. מהם uncontorlled componenets?
-
+## ש. מהם Uncontrolled Compoonents ?
 ת. Uncontrolled Components הם קומפוננטות שלא נשלטות ע"י הסטייט אלא ע"י הDOM. ולכן כדי לגשת לערכים שהוזנו אנחנו נצטרך להשתמש ברפרנסים(refs).
 
 ```
@@ -392,8 +391,7 @@ export default App;
 
 ```
 
-ש.מהם Controlled Components: 
-
+## ש. מהם Controlled Components ?
 ת. Controlled Components הן קומפוננטות שנשלטות ע"י הסטייט , כלומר הן לוקחות את הערך הנוכחי ומשנות אותו דרך פונקציות Callbacks כמו onClick וonChange.
 
 ```
