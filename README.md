@@ -15,7 +15,38 @@ JSX ממירה תגים של HTML לאלמנטים של REACT.<br>
 
 ## ש. מהו הVirtual Dom ?
 
-ת. ראשית DOM הוא ראשי תיבות לDocument Object Model.הDOM מייצג מסמך HTML עם מבנה עץ לוגי . כל ענףשל העץ מסתיים בצומת , וכל צומת מכילה אובייקטים.React שומרת ייצוג של הDOM בזכרון וזהו הVIRTUAL DOM. כאשר סטייס של אובייקט משתנה , הVDOM משנה בDOM האמיתי אך ורק את האובייקט שהשתנה ולא מעדכן את כל האובייקטים.
+ת. הVirtual DOM (VDOM ) הוא רפרזנטציה של הDOM האמיתי בזכרון. הרפרזנטציה של ממשק המשתמש נשמרת בזכרון ומסתנכרנת עם הDOM האמיתי.זהו צעד שקורה בין הקריאה לפונקציה render לבין ההצגה של האלמנטים על המסך. כל התהליך נקרא reconciliation.
+
+## ש.איך עובד ה-Virtual DOM ?
+ת. הVirutal DOM עובד בשלושה צעדים פשוטים :
+
+1.כאשר משתנים נתונים , כל ממשק המשתמש עובד רינדור מחדש בייצוג שלו בזכרון (VDOM)
+
+<div align="center">
+
+![image](https://user-images.githubusercontent.com/37695804/199983484-e756c056-9e0a-453a-a19f-864d21844542.png)
+
+
+</div>
+
+
+2.לאחר מכן השוני בין הייצוג החדש לישן מחושב
+
+<div align="center">
+
+![image](https://user-images.githubusercontent.com/37695804/199983930-26a0707b-abd0-4c4c-87fc-e21e74ac3e81.png)
+
+</div>
+
+
+3.לאחר שהסתיים החישוב , הDOM האמיתי יעדכן אך ורק את האלמנטים שהשתנו
+
+<div align="center">
+
+![image](https://user-images.githubusercontent.com/37695804/199984222-f204f4c5-32e7-46b2-80ee-d220504ea005.png)
+
+</div>
+
 
 ## ש.איך מעבירים נתונים לקומפוננטות של ריאקט ? 
 
@@ -130,6 +161,31 @@ function Columns() {
 }
 
 ```
+
+## ש. מדוע לא מעדכנים state באופן ישיר ?
+
+ת. כי אם ננסה לעדכן סטייס באופן ישיר הקומפוננטה לא תתרנדר מחדש.
+
+נניח שיש לנו את הסטייט הבא:
+
+```
+[message,setMessage] = useState("");
+
+```
+
+```
+//טעות
+message = 'Hello world'
+
+במקום אנחנו נשתמש ב setMessage() , באופן הזה יתוזמן עדכון לסטייס של הקומפוננטה , ברגע שהסטייס ישתנה הקומפננטה תגיב ברנדור מחדש.
+```
+
+```
+//תקין
+setMessage(`Hello world');
+
+```
+
 
 ## ש.מדוע אנחנו צריכים key עבור רשימות בריאקט ?
 
@@ -304,3 +360,77 @@ function MyComponent() {
 
 
 ```
+
+## ש. מהם uncontorlled componenets?
+
+ת. Uncontrolled Components הם קומפוננטות שלא נשלטות ע"י הסטייט אלא ע"י הDOM. ולכן כדי לגשת לערכים שהוזנו אנחנו נצטרך להשתמש ברפרנסים(refs).
+
+```
+import React, { useRef } from 'react';
+
+function App() {
+const inputRef = useRef(null);
+
+function handleSubmit() {
+	alert(`Name: ${inputRef.current.value}`);
+}
+
+return (
+	<div className="App">
+	<h3>Uncontrolled Component</h3>
+	<form onSubmit={handleSubmit}>
+		<label>Name :</label>
+		<input type="text" name="name" ref={inputRef} />
+		<button type="submit">Submit</button>
+	</form>
+	</div>
+);
+}
+
+export default App;
+
+
+```
+
+ש.מהם Controlled Components: 
+
+ת. Controlled Components הן קומפוננטות שנשלטות ע"י הסטייט , כלומר הן לוקחות את הערך הנוכחי ומשנות אותו דרך פונקציות Callbacks כמו onClick וonChange.
+
+```
+import { useState } from 'react';
+
+function App() {
+const [name, setName] = useState('');
+
+function handleSubmit() {
+	alert(`Name: ${name}`);
+}
+	
+return (
+	<div className="App">
+	<h3>Controlled Component</h3>
+	<form onSubmit={handleSubmit}>
+		<label>Name:</label>
+		<input name="name" value={name} onChange={(e) => setName(e.target.value)} />
+		<button type="submit">Submit</button>
+	</form>
+	</div>
+);
+}
+
+export default App;
+
+
+```
+
+## ש. מנה את ההבדלים העיקריים בין Controlled Componenets לUncontrolled Components
+
+<div align="center">
+
+| Controlled Component      | Uncontrolled Component |
+| ----------- | ----------- |
+| הקומפוננטה נשלטת ע"י הסטייט שלה      | הקומפוננטה נשלטת ע"י הDOM       |
+| הקומפוננטות הללו צפויות , שכן כאמור הן נשלטות ע"י הסטייט   | הן בלתי צפויות מאחר שבמהלך מחזור החיים שלהן האלמטים יכולים לאבד את הרפרנס ואו יכולים להשתנות ולהיות מושפעים ממקורות אחרים        |
+| יש להן שליטה טובה יותר על הערכים והנתונים בטפסים   | שליטה מאוד מוגבלת על הערכים והנתונים בטפסים        |
+
+</div>
