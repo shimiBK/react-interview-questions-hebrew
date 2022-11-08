@@ -340,6 +340,107 @@ useEffect(() => {
 
 ```
 
+## ש. מה השימוש בuseMemo() hook? 
+ת. הuseMemo משמש לממואיזציה ( שינון ) של פונקציות יקרות כך שהם נקראות רק כאשר סט של אינפוטים משתנה ולא בכל רנדר. 
+בדוגמה הבאה יש לנו פונקציה יקרה שרצה בכל רנדר , כאשר נוסיף משימה לtodo או נשנה את count יהיה דיליי בביצוע : 
+```
+
+import { useState } from "react";
+import ReactDOM from "react-dom/client";
+
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [todos, setTodos] = useState([]);
+  const calculation = expensiveCalculation(count);
+
+  const increment = () => {
+    setCount((c) => c + 1);
+  };
+  const addTodo = () => {
+    setTodos((t) => [...t, "New Todo"]);
+  };
+
+  return (
+    <div>
+      <div>
+        <h2>My Todos</h2>
+        {todos.map((todo, index) => {
+          return <p key={index}>{todo}</p>;
+        })}
+        <button onClick={addTodo}>Add Todo</button>
+      </div>
+      <hr />
+      <div>
+        Count: {count}
+        <button onClick={increment}>+</button>
+        <h2>Expensive Calculation</h2>
+        {calculation}
+      </div>
+    </div>
+  );
+};
+
+const expensiveCalculation = (num) => {
+  console.log("Calculating...");
+  for (let i = 0; i < 1000000000; i++) {
+    num += 1;
+  }
+  return num;
+};
+
+
+```
+כדי לפתור את הבעיה ניתן להתשמש בuseMemo שתשנן את הפונקציה "expensiveCount" , הuseMemo מקבל כפרמטר שני תלויות (dependencies) , הפונקציה היקרה תרוץ רק כאשר התלויות ישתנו . בדוגמה הבאה הפונקציה תרוץ רק כאשר count ישתנה ולא כאשר תתווסף משימה לtodos.
+```
+import { useState, useMemo } from "react";
+import ReactDOM from "react-dom/client";
+
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [todos, setTodos] = useState([]);
+  const calculation = useMemo(() => expensiveCalculation(count), [count]);
+
+  const increment = () => {
+    setCount((c) => c + 1);
+  };
+  const addTodo = () => {
+    setTodos((t) => [...t, "New Todo"]);
+  };
+
+  return (
+    <div>
+      <div>
+        <h2>My Todos</h2>
+        {todos.map((todo, index) => {
+          return <p key={index}>{todo}</p>;
+        })}
+        <button onClick={addTodo}>Add Todo</button>
+      </div>
+      <hr />
+      <div>
+        Count: {count}
+        <button onClick={increment}>+</button>
+        <h2>Expensive Calculation</h2>
+        {calculation}
+      </div>
+    </div>
+  );
+};
+
+const expensiveCalculation = (num) => {
+  console.log("Calculating...");
+  for (let i = 0; i < 1000000000; i++) {
+    num += 1;
+  }
+  return num;
+};
+
+
+
+```
+
+
+
 ## ש. מהו הuseRef Hook ואיך משתמשים בו ?
 
 ת.Ref הוא בעצם Reference לDOM element  בריאקט , אנו יוצרים Refs באמצעות useRef Hook וניתן למקם אותם באופן מיידי בתוך משתנה , המשתנה הזה לאחר מוכן מעובר לאלמנט של ריאקט על מנת לקבל רפרנס לאלמנט DOM ( כמו div,span וכו' ) , האלמנט עצמו והמאפיינים שלו כעת זמינים תחת המאפיין .current 
