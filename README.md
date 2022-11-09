@@ -59,7 +59,7 @@ JSX ממירה תגים של HTML לאלמנטים של REACT.<br>
 Props הם נתונים המועברים מקומפוננטת הורה לקומפוננטת ילד , הם מוצהרים בקומפוננטת הילד , ניתן לקרוא להם בכל שם והם יכולים לקבל כל ערך ולידי
 
 קומפוננטה של הורה :
-```
+```js
 function Blog() {
   const post = { title: "My Blog Post!" };
 
@@ -68,14 +68,14 @@ function Blog() {
 
 ```
 קומפוננטה של ילד:
-```
+```js
 function BlogPost({ post }) {
   return <h1>{post.title}</h1>
 }
 
 ```
 מאחר וprops הם plain object properties אפשר לפרק אותם על מנת לגשת אליהם באופן ישיר :
-```
+```js
 function BlogPost({ post }) {
   return <h1>{post.title}</h1>
 }
@@ -85,7 +85,7 @@ function BlogPost({ post }) {
 כעת נעבור לContext , Context הוא בעצם data שמועבר מContext Provider לכל קומפוננטה שצורכת אותו , Context מאפשר לנו לגשת לנתונים בכל מקום בתכנית ( בהנחה שאנחנו מעבירים את הקונטקסט כפי שנראה בדוגמה ) , מבלי להשתמש בProps.
 קונטקס הוא נתון שמועבר כלפי מטה על הvalue prop באמצעות Context.Provider.ניתן להשתמש בו באמצעות Context.Consumer או useContext הוק .
 
-```
+```js
 
 import { createContext, useContext } from 'react';
 
@@ -126,7 +126,7 @@ function BlogPost() {
 
 נראה דוגמה , אם לצורך העניין נרצה ליצור טבלה , ללא Fragments זה יראה כך :
 
-```
+```js
 function Table() {
   return (
     <table>
@@ -149,7 +149,7 @@ function Columns() {
 ```
 אך נוכל לחסוך את הdiv בקומפוננטת הCoulmn ולכתוב כך :
 
-```
+```js
 
 function Columns() {
   return (
@@ -168,19 +168,19 @@ function Columns() {
 
 נניח שיש לנו את הסטייט הבא:
 
-```
+```js
 [message,setMessage] = useState("");
 
 ```
 
-```
+```js
 //טעות
 message = 'Hello world'
-
+```
 במקום אנחנו נשתמש ב setMessage() , באופן הזה יתוזמן עדכון לסטייס של הקומפוננטה , ברגע שהסטייס ישתנה הקומפננטה תגיב ברנדור מחדש.
-```
 
-```
+
+```js
 //תקין
 setMessage(`Hello world');
 
@@ -192,7 +192,7 @@ setMessage(`Hello world');
 
 ת.Keys הם ערכים מיוחדים שאנחנו חייבים להעביר לkey prop כאשר אנחנו משתמשים בפונקציית .map() על אלמנט או קומפוננט , הkeys משמשים על מנת לזהות איזה מן הפריטים ברשימה השתנה , התעדכן או נמחק.במילים אחרות הkeys נועדו לתת זהות לכל אלמנט ברשימה וזאת על מנת שריאקט תוכל לעדכן את הDOM כהלכה , נראה דוגמה :
 
-```
+```js
 
 posts.map(post => <li key={post.id}>{post.title}</li>)
 
@@ -251,7 +251,7 @@ useCallback<br>
 ת.useState Hook  מאפשר לנו לעקוב/לנהל state בקומפוננטה פונקציונלית
 נראה דוגמה : 
 
-```
+```js
 
   import React, { useState } from 'react';
 
@@ -281,7 +281,7 @@ useCallback<br>
 useEffect מקבל שני ארגומנטים כאשר השני הוא ארגומנט אופציונלי.
 הארגומנט הראשון הוא פונקציה שנקראת Effect , והארגומנט השני הוא מערך של תלויות ( dependencies ) כאמור הארגומנט הזה הוא אופציונלי ותכף נראה את השימוש בו.
 
-```
+```js
 
 import { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
@@ -306,7 +306,7 @@ function Timer() {
 
 כאשר לא מעבירים תלות : 
 
-```
+```js
 
 
 useEffect(() => {
@@ -319,7 +319,7 @@ useEffect(() => {
 
 כאשר מעבירים מערך ריק :
 
-```
+```js
 useEffect(() => {
   //רץ ברינדור הראשון
 }, []);
@@ -330,7 +330,7 @@ useEffect(() => {
 
 כאשר מעבירים prop או state:
 
-```
+```js
 useEffect(() => {
   //רץ ברינדור הראשון
   //וגם כאשר הערך של הפרופ או הסטייס משתנים
@@ -343,7 +343,7 @@ useEffect(() => {
 ## ש. מה השימוש בuseMemo() hook? 
 ת. הuseMemo משמש לממואיזציה ( שינון ) של פונקציות יקרות כך שהם נקראות רק כאשר סט של אינפוטים משתנה ולא בכל רנדר. 
 בדוגמה הבאה יש לנו פונקציה יקרה שרצה בכל רנדר , כאשר נוסיף משימה לtodo או נשנה את count יהיה דיליי בביצוע : 
-```
+```js
 
 import { useState } from "react";
 import ReactDOM from "react-dom/client";
@@ -391,7 +391,7 @@ const expensiveCalculation = (num) => {
 
 ```
 כדי לפתור את הבעיה ניתן להתשמש בuseMemo שתשנן את הפונקציה "expensiveCount" , הuseMemo מקבל כפרמטר שני תלויות (dependencies) , הפונקציה היקרה תרוץ רק כאשר התלויות ישתנו . בדוגמה הבאה הפונקציה תרוץ רק כאשר count ישתנה ולא כאשר תתווסף משימה לtodos.
-```
+```js
 import { useState, useMemo } from "react";
 import ReactDOM from "react-dom/client";
 
@@ -445,7 +445,7 @@ const expensiveCalculation = (num) => {
 
 ת.Ref הוא בעצם Reference לDOM element  בריאקט , אנו יוצרים Refs באמצעות useRef Hook וניתן למקם אותם באופן מיידי בתוך משתנה , המשתנה הזה לאחר מוכן מעובר לאלמנט של ריאקט על מנת לקבל רפרנס לאלמנט DOM ( כמו div,span וכו' ) , האלמנט עצמו והמאפיינים שלו כעת זמינים תחת המאפיין .current 
 נראה דוגמה : 
-```
+```js
 
 import { useRef } from 'react'
 
@@ -465,7 +465,7 @@ function MyComponent() {
 ## ש. מהם Uncontrolled Compoonents ?
 ת. Uncontrolled Components הם קומפוננטות שלא נשלטות ע"י הסטייט אלא ע"י הDOM. ולכן כדי לגשת לערכים שהוזנו אנחנו נצטרך להשתמש ברפרנסים(refs).
 
-```
+```js
 import React, { useRef } from 'react';
 
 function App() {
@@ -495,7 +495,7 @@ export default App;
 ## ש. מהם Controlled Components ?
 ת. Controlled Components הן קומפוננטות שנשלטות ע"י הסטייט , כלומר הן לוקחות את הערך הנוכחי ומשנות אותו דרך פונקציות Callbacks כמו onClick וonChange.
 
-```
+```js
 import { useState } from 'react';
 
 function App() {
@@ -538,7 +538,7 @@ export default App;
 ## ש. הסבר מהו Strict Mode בריאקט
 ץת. StrictMode הוא כלי שהוסף לריאקט בגרסה 16.3 , מטרתו להדגיש בעיות פוטנציליות באפליקציה והוא מבצע בדיקות נוספות בשביל כך.
 על מנת להפעילו יש לעטוף ב<React.StrictMode> : 
-```
+```js
 function App() {
  return (
    <React.StrictMode>
