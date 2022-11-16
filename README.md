@@ -1,5 +1,52 @@
-# שאלות הכנה לראיון עבודה ריקאט
+<div align="center">
+	
+# שאלות הכנה לראיון עבודה בReactJS אהבתם ? תנו ⭐
+</div>
 
+
+<div dir="rtl">
+	
+| מספר      | שאלה |
+| ----------- | ----------- |
+| 1   | [מה זה ריאקט?](#שמה-זה-ריאקט)       |
+| 2   | [מה זה JSX?](#ש-מה-זה-jsx)       |
+| 3   | [מהו הVirtual Dom ?](#ש-מהו-הvirtual-dom-)       |
+| 4   | [איך עובד ה-Virtual DOM ?](#שאיך-עובד-ה-virtual-dom-)       |
+| 5   | [איך מעבירים נתונים לקומפוננטות של ריאקט ](#שאיך-מעבירים-נתונים-לקומפוננטות-של-ריאקט-)       |
+| 6   | [מה ההבדל בין state לprops?](#ש-מה-ההבדל-בין-state-לprops)   |
+| 7   | [למה משמשים React Fragments ?](#שלמה-משמשים-react-fragments-)       |
+| 8   | [מדוע לא מעדכנים state באופן ישיר ?](#ש-מדוע-לא-מעדכנים-state-באופן-ישיר-)       |
+| 9   | [מדוע אנחנו צריכים key עבור רשימות בריאקט ?](#שמדוע-אנחנו-צריכים-key-עבור-רשימות-בריאקט-)       |
+| 10  | [מהו state?](#ש-מהו-state)       |
+| 11  | [מהו High Order Component ?](#ש-מהו-high-order-component-)       |
+| 12  | [מהם Forms בריאקט ?](#שמהם-forms-בריאקט-)       |
+| 13  | [מהם קומפוננטות בריאקט ?](#ש-מהם-קומפוננטות-בריאקט-)       |
+| 14  | [מה ההבדל בין קומפוננטה שהיא Stateful ל Stateless ?](#ש-מה-ההבדל-בין-קומפוננטה-שהיא-stateful-ל-stateless-)       |
+| 15  | [מהם HOOKS?](#ש-מהם-hooks)       |
+| 16  | [מהו useState ?](#ש-מהו-usestate-)       |
+| 17  | [מהו useEffect ואיך משתמשים בו ?](#ש-מהו-useeffect-ואיך-משתמשים-בו-)       |
+| 19  | [מה השימוש בuseMemo() hook?](#ש-מה-השימוש-בusememo-hook)       |
+| 20  | [מהו הuseRef Hook ואיך משתמשים בו ?](#ש-מהו-הuseref-hook-ואיך-משתמשים-בו-)       |
+| 21  | [מהם Uncontrolled Compoonents ?](#ש-מהם-uncontrolled-compoonents)       |
+| 22  | [מהם Controlled Components ?](#ש-מהם-controlled-components-)       |
+| 23  | [מנה את ההבדלים העיקריים בין Controlled Componenets לUncontrolled Components](#ש-מנה-את-ההבדלים-העיקריים-בין-controlled-componenets-לuncontrolled-components)       |
+| 24  | [#ש-הסבר-מהו-strict-mode-בריאקט](הסבר מהו Strict Mode בריאקט)       |
+| 25  | []()       |
+| 26  | []()       |
+| 27  | []()       |
+| 28  | []()       |
+| 29  | []()       |
+| 30  | []()       |
+| 31  | []()       |
+
+
+
+
+
+
+
+	
+</div>
 
 ## ש.מה זה ריאקט?
 
