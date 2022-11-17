@@ -27,17 +27,12 @@
 | 17  | [מהו useEffect ואיך משתמשים בו ?](#ש-מהו-useeffect-ואיך-משתמשים-בו-)       |
 | 19  | [מה השימוש בuseMemo() hook?](#ש-מה-השימוש-בusememo-hook)       |
 | 20  | [מהו הuseRef Hook ואיך משתמשים בו ?](#ש-מהו-הuseref-hook-ואיך-משתמשים-בו-)       |
-| 21  | [מהם Uncontrolled Compoonents ?](#ש-מהם-uncontrolled-compoonents)       |
+| 21  | [מהם Uncontrolled Compoonents ?](#ש-מהם-uncontrolled-compoonents-)       |
 | 22  | [מהם Controlled Components ?](#ש-מהם-controlled-components-)       |
 | 23  | [מנה את ההבדלים העיקריים בין Controlled Componenets לUncontrolled Components](#ש-מנה-את-ההבדלים-העיקריים-בין-controlled-componenets-לuncontrolled-components)       |
-| 24  | [#ש-הסבר-מהו-strict-mode-בריאקט](הסבר מהו Strict Mode בריאקט)       |
-| 25  | []()       |
-| 26  | []()       |
-| 27  | []()       |
-| 28  | []()       |
-| 29  | []()       |
-| 30  | []()       |
-| 31  | []()       |
+| 24  | [הסבר מהו Strict Mode בריאקט](#ש-הסבר-מהו-strict-mode-בריאקט)       |
+| 25  | [מהם HOOKS מותאמים אישית (Custom Hooks) ?](#ש-מהם-hooks-מותאמים-אישית-custom-hooks-)       |
+| 26  | [מה זה React Router ?](#ש-מה-זה-react-router-)       |
 
 
 
@@ -611,3 +606,68 @@ function App() {
 * **שגיאה לגבי השימוש בfindDomNode:
 	* בעבר , השיטה findDOMNode() שימשה כדי לחפש צומת בעץ הDOM , השיטה הזו הוצאה משימוש בריאקט , ולכן אם ננסה להתשמש בה הStrictMode יזהיר אותנו .
 * שגיאה לגבי שימוש בContextAPI ישן.
+
+
+## ש. מהם HOOKS מותאמים אישית (Custom Hooks) ?
+
+ת. הוקס מותאמים אישית הם בעצם פונקציות JS שאחנו כותבים כדי לאפשר לעצמנו לחלוק את הלוגיקה של הקומפוננטה עם קומפוננטות אחרות , ובכך לחסוך כתיבת קוד מיותר.
+
+לדוגמה נכתוב הוק בשם useFetch שיעזור לנו לעשות fetch לדאטה בתכנית .
+
+ניצור את הקובץ useFecth.js
+
+```js
+
+import { useState, useEffect } from "react";
+
+const useFetch = (url) => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => setData(data));
+  }, [url]);
+
+  return [data];
+};
+
+export default useFetch;
+
+
+```
+
+שימוש בהוק החדש בindex.js 
+
+
+```js
+
+import ReactDOM from "react-dom/client";
+import useFetch from "./useFetch";
+
+const Home = () => {
+  const [data] = useFetch("https://jsonplaceholder.typicode.com/todos");
+
+  return (
+    <>
+      {data &&
+        data.map((item) => {
+          return <p key={item.id}>{item.title}</p>;
+        })}
+    </>
+  );
+};
+
+
+
+```
+
+יצרנו כאמור קובץ חדש בשם useFetch.js שמכיל פונקציה שנקראת useFecth שהיא מכילה את כל הלוגיקה שנדרשת על מנת לעשות fetch לנתונים , הפונקציה מקבלת url ומחזיר את הנתונים מממנו .
+
+לאחר מכן בקובץ index.js אנחנו מייבאים את useFecth ומאתחלים אותו בדיוק כמו כל הוא אחר. נעביר לו את הurl הנדרש ונקבל בחזרה את הנתונים ממנו.
+
+
+
+## ש. מה זה React Router ?
+
+ת. ריקאט ראוטר היא ספרייה סטנדרטית שמשתמשים בה בריקאט על מנת לטפל בניתוב וניווט של עמודים/דפים באפליקצייה 
